@@ -27,8 +27,15 @@ import java.lang.reflect.Method;
 
 public class MemcachedInterceptor implements MethodInterceptor {
 
+	/**
+	 * If necessary, override this to provider {@link Configuration} instance.
+	 */
+	public Configuration getConfiguration() {
+		return null;
+	}
+
 	@Resource
-	private Configuration config;
+	private Configuration config = getConfiguration();
 
 	@Override
 	public Object invoke(MethodInvocation invocation) throws Throwable {
