@@ -31,7 +31,7 @@
 
 "memcachedweaver" is a pluggable wrapper API for several memcached clients, and it's possible to add new adaptors.
 
-```
+```java
 Configuration config = new Configuration();
 //config.setAdaptorClassName("memcachedweaver.client.adaptor.SpymemcachedAdaptor");
 config.setAdaptorClassName("memcachedweaver.client.adaptor.XmemcachedAdaptor");
