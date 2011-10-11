@@ -27,6 +27,25 @@
 
 ## Usage
 
+### Using as a wrapper API for several memcached clients
+
+"memcachedweaver" is a pluggable wrapper API for several memcached clients, and it's possible to add new adaptors.
+
+```
+Configuration config = new Configuration();
+//config.setAdaptorClassName("memcachedweaver.client.adaptor.SpymemcachedAdaptor");
+config.setAdaptorClassName("memcachedweaver.client.adaptor.XmemcachedAdaptor");
+config.setAddressesAsString("server1:11211,server2:11211");
+MemcachedClient memcached = MemcachedClientFactory.create(config);
+
+Thread.sleep(300L);
+memcached.set("stopped time", 1, new java.util.Date().toString()); // space will be replaced to underscore
+Thread.sleep(300L);
+assertThat(memcached.get("stopped time"), is(notNullValue())); // "Wed Oct 12 00:01:54 JST 2011"
+Thread.sleep(1000L);
+assertThat(memcached.get("stopped time"), is(nullValue())); // null
+```
+
 ### Setup for Spring Framework
 
 #### applicationContext.xml
@@ -44,7 +63,7 @@
 </aop:config>
 ```
 
-### Using method anntation
+### Using AOP
 
 The value will be cached for the duration of 10 seconds.
 
