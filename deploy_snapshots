@@ -1,0 +1,6 @@
+#!/bin/sh
+cd ~
+HOME_DIR=`pwd`
+cd -
+mvn -Dmaven.test.skip=true -DaltDeploymentRepository=release-repo::default::file:${HOME_DIR}/github/seratch.github.com/mvn-repo/snapshots clean deploy
+
