@@ -1,0 +1,42 @@
+package memcachedweaver.client;
+
+import memcachedweaver.client.MemcachedClientPool.*;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.mockito.BDDMockito.*;
+
+import memcachedweaver.Configuration;
+import memcachedweaver.client.adaptor.MemcachedClientAdaptor;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+public class MemcachedClientPoolTest {
+
+	Configuration config = null;
+
+	@Before
+	public void setUp() throws Exception {
+		if (config == null) {
+			config = new Configuration();
+			config.loadConfigFromProperties();
+		}
+	}
+
+	@Test
+	public void type() throws Exception {
+		assertThat(MemcachedClientPool.class, notNullValue());
+	}
+
+	@Test
+	public void getMemcachedClient_A$Configuration() throws Exception {
+		MemcachedClient actual = MemcachedClientPool.getMemcachedClient(config);
+		assertThat(actual, is(notNullValue()));
+	}
+
+}
