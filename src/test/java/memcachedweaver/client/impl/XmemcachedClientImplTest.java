@@ -46,13 +46,11 @@ public class XmemcachedClientImplTest {
 
 	@Test
 	public void initialize_A$InetSocketAddress() throws Exception {
-		InetSocketAddress address = mock(InetSocketAddress.class);
 		memcached.initialize(address);
 	}
 
 	@Test
 	public void initialize_A$InetSocketAddress$String() throws Exception {
-		InetSocketAddress address = mock(InetSocketAddress.class);
 		String namespace = null;
 		memcached.initialize(address, namespace);
 	}
