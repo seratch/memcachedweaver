@@ -15,13 +15,13 @@
  */
 package memcachedweaver.client.impl;
 
-import static memcachedweaver.util.Assertion.*;
-
 import net.spy.memcached.MemcachedClient;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.List;
+
+import static memcachedweaver.util.Assertion.notNullValue;
 
 public class SpymemcachedClientImpl extends ClientImplBase {
 
@@ -38,20 +38,7 @@ public class SpymemcachedClientImpl extends ClientImplBase {
 		}
 	}
 
-	public void initialize(InetSocketAddress address) throws IOException {
-		notNullValue("address", address);
-		memcached = new MemcachedClient(address);
-		waitForConnectionReady();
-	}
-
-	public void initialize(InetSocketAddress address, String namespace)
-			throws IOException {
-		notNullValue("address", address);
-		memcached = new MemcachedClient(address);
-		setNamespace(namespace);
-		waitForConnectionReady();
-	}
-
+	@Override
 	public void initialize(List<InetSocketAddress> addresses)
 			throws IOException {
 		notNullValue("addresses", addresses);
@@ -59,6 +46,7 @@ public class SpymemcachedClientImpl extends ClientImplBase {
 		waitForConnectionReady();
 	}
 
+	@Override
 	public void initialize(List<InetSocketAddress> addresses, String namespace)
 			throws IOException {
 		notNullValue("addresses", addresses);

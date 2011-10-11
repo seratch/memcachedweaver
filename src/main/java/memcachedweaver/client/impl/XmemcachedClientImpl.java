@@ -28,24 +28,14 @@ public class XmemcachedClientImpl extends ClientImplBase {
 
 	private MemcachedClient memcached;
 
-	public void initialize(InetSocketAddress address) throws IOException {
-		notNullValue("address", address);
-		memcached = new XMemcachedClient(address);
-	}
-
-	public void initialize(InetSocketAddress address, String namespace)
-			throws IOException {
-		notNullValue("address", address);
-		memcached = new XMemcachedClient(address);
-		setNamespace(namespace);
-	}
-
+	@Override
 	public void initialize(List<InetSocketAddress> addresses)
 			throws IOException {
 		notNullValue("addresses", addresses);
 		memcached = new XMemcachedClient(addresses);
 	}
 
+	@Override
 	public void initialize(List<InetSocketAddress> addresses, String namespace)
 			throws IOException {
 		notNullValue("addresses", addresses);

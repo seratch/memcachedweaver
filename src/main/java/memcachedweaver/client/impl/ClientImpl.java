@@ -21,15 +21,9 @@ import java.util.List;
 
 public interface ClientImpl {
 
-	void initialize(InetSocketAddress address) throws IOException;
-
-	void initialize(InetSocketAddress address, String namespace)
-			throws IOException;
-
 	void initialize(List<InetSocketAddress> addresses) throws IOException;
 
-	void initialize(List<InetSocketAddress> addresses, String namespace)
-			throws IOException;
+	void initialize(List<InetSocketAddress> addresses, String namespace) throws IOException;
 
 	String getNamespace();
 

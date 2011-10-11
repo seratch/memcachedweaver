@@ -29,6 +29,8 @@ public class MemcachedInterceptor implements MethodInterceptor {
 
 	/**
 	 * If necessary, override this to provider {@link Configuration} instance.
+	 *
+	 * @return Configuration
 	 */
 	public Configuration getConfiguration() {
 		return null;

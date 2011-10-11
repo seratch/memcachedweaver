@@ -32,7 +32,7 @@ public class MemcachedInterceptorTest {
 			config = new Configuration();
 			config.loadConfigFromProperties();
 		}
-		address = config.getAddress();
+		address = config.getAddresses().get(0);
 	}
 
 	@Test

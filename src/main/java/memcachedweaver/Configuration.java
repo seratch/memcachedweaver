@@ -73,18 +73,6 @@ public class Configuration {
 		this.namespace = namespace;
 	}
 
-	public InetSocketAddress getAddress() {
-		return getAddress(0);
-	}
-
-	public InetSocketAddress getAddress(int idx) {
-		return addresses.get(idx);
-	}
-
-	public void setAddress(InetSocketAddress address) {
-		this.addresses.add(address);
-	}
-
 	public List<InetSocketAddress> getAddresses() {
 		return addresses;
 	}

@@ -37,16 +37,6 @@ public class MemcachedClient {
 		return clientImpl;
 	}
 
-	public void initialize(InetSocketAddress address) throws IOException {
-		clientImpl.initialize(address);
-	}
-
-	public void initialize(InetSocketAddress address, String namespace)
-			throws IOException {
-		clientImpl.initialize(address);
-		clientImpl.setNamespace(namespace);
-	}
-
 	public void initialize(List<InetSocketAddress> addresses)
 			throws IOException {
 		clientImpl.initialize(addresses);

@@ -21,7 +21,7 @@ public class XmemcachedClientImplTest {
 	ClientImpl memcached = new XmemcachedClientImpl();
 	Configuration config = null;
 
-	InetSocketAddress address = null;
+	List<InetSocketAddress> addresses = null;
 
 	@Before
 	public void setUp() throws Exception {
@@ -29,8 +29,8 @@ public class XmemcachedClientImplTest {
 			config = new Configuration();
 			config.loadConfigFromProperties();
 		}
-		memcached.initialize(config.getAddress());
-		address = config.getAddress();
+		memcached.initialize(config.getAddresses());
+		addresses = config.getAddresses();
 	}
 
 	@Test
@@ -45,27 +45,12 @@ public class XmemcachedClientImplTest {
 	}
 
 	@Test
-	public void initialize_A$InetSocketAddress() throws Exception {
-		memcached.initialize(address);
-	}
-
-	@Test
-	public void initialize_A$InetSocketAddress$String() throws Exception {
-		String namespace = null;
-		memcached.initialize(address, namespace);
-	}
-
-	@Test
 	public void initialize_A$List() throws Exception {
-		List<InetSocketAddress> addresses = new ArrayList<InetSocketAddress>();
-		addresses.add(address);
 		memcached.initialize(addresses);
 	}
 
 	@Test
 	public void initialize_A$List$String() throws Exception {
-		List<InetSocketAddress> addresses = new ArrayList<InetSocketAddress>();
-		addresses.add(address);
 		String namespace = null;
 		memcached.initialize(addresses, namespace);
 	}

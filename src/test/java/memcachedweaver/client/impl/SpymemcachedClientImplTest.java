@@ -21,8 +21,9 @@ public class SpymemcachedClientImplTest {
 	SpymemcachedClientImpl memcached = new SpymemcachedClientImpl();
 	Configuration config = null;
 
-	InetSocketAddress address = null;
 	String namespace = "memcachedweaver.testing";
+
+	List<InetSocketAddress> addresses = null;
 
 	@Before
 	public void setUp() throws Exception {
@@ -30,8 +31,8 @@ public class SpymemcachedClientImplTest {
 			config = new Configuration();
 			config.loadConfigFromProperties();
 		}
-		memcached.initialize(config.getAddress());
-		address = config.getAddress();
+		memcached.initialize(config.getAddresses());
+		addresses = config.getAddresses();
 	}
 
 	@Test
@@ -51,26 +52,12 @@ public class SpymemcachedClientImplTest {
 	}
 
 	@Test
-	public void initialize_A$InetSocketAddress() throws Exception {
-		memcached.initialize(address);
-	}
-
-	@Test
-	public void initialize_A$InetSocketAddress$String() throws Exception {
-		memcached.initialize(address, namespace);
-	}
-
-	@Test
 	public void initialize_A$List() throws Exception {
-		List<InetSocketAddress> addresses = new ArrayList<InetSocketAddress>();
-		addresses.add(address);
 		memcached.initialize(addresses);
 	}
 
 	@Test
 	public void initialize_A$List$String() throws Exception {
-		List<InetSocketAddress> addresses = new ArrayList<InetSocketAddress>();
-		addresses.add(address);
 		memcached.initialize(addresses, namespace);
 	}
 

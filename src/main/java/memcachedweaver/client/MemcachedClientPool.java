@@ -17,6 +17,7 @@ package memcachedweaver.client;
 
 import memcachedweaver.Configuration;
 import memcachedweaver.client.adaptor.MemcachedClientAdaptor;
+import memcachedweaver.util.Assertion;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -39,7 +40,7 @@ public final class MemcachedClientPool {
 			config.loadConfigFromProperties();
 		}
 		String namespace = config.getNamespace();
-		if ( namespace == null ) {
+		if (namespace == null) {
 			config.setNamespace(MemcachedClient.DEFAULT_NAMESPACE);
 		}
 
@@ -50,21 +51,15 @@ public final class MemcachedClientPool {
 		}
 
 		// create new client instance
-		Class<? extends MemcachedClientAdaptor> adaptorClass = config
-				.getAdaptorClass();
+		Class<? extends MemcachedClientAdaptor> adaptorClass = config.getAdaptorClass();
 		if (adaptorClass == null) {
-			adaptorClass = (Class<? extends MemcachedClientAdaptor>) Class
-					.forName(DEFAULT_CLIENT_ADAPTOR_NAME);
+			adaptorClass = (Class<? extends MemcachedClientAdaptor>) Class.forName(DEFAULT_CLIENT_ADAPTOR_NAME);
 		}
 		memcached = new MemcachedClient(config.getAdaptorClass().newInstance());
-		if (config.getAddresses() != null && config.getAddresses().size() > 0) {
-			memcached.initialize(config.getAddresses(), namespace);
-		} else {
-			memcached.initialize(config.getAddress(), namespace);
-		}
+		Assertion.notNullValue("config.getAddresses()", config.getAddresses());
+		memcached.initialize(config.getAddresses(), namespace);
 		CACHED_CLIENTS.put(namespace, memcached);
 		return memcached;
-
 	}
 
 }
