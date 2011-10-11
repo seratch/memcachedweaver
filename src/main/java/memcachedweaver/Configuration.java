@@ -27,7 +27,7 @@ import java.util.Properties;
 public class Configuration {
 
 	public static final String PROPERTIES_FILENAME = "memcachedweaver.properties";
-	public static final String KEY_CLIENT_ADAPTOR_CLASSNAME = "memcachedweaver.client.adaptorClassname";
+	public static final String KEY_CLIENT_ADAPTOR_CLASSNAME = "memcachedweaver.client.adaptorClassName";
 	public static final String KEY_CLIENT_SERVER_ADDRESSES = "memcachedweaver.server.addresses";
 
 	public void loadConfigFromProperties() throws IOException,

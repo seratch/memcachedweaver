@@ -44,7 +44,7 @@
 </aop:config>
 ```
 
-### using method anntation
+### Using method anntation
 
 The value will be cached for the duration of 10 seconds.
 
