@@ -15,6 +15,7 @@
  */
 package memcachedweaver.client;
 
+import memcachedweaver.Configuration;
 import memcachedweaver.client.adaptor.MemcachedClientAdaptor;
 
 public class MemcachedClientFactory {
@@ -22,9 +23,8 @@ public class MemcachedClientFactory {
 	private MemcachedClientFactory() {
 	}
 
-	public static MemcachedClient create(
-			MemcachedClientAdaptor clientAdaptor) throws Exception {
-		return new MemcachedClient(clientAdaptor);
+	public static MemcachedClient create(Configuration config) throws Exception {
+		return MemcachedClientPool.getMemcachedClient(config);
 	}
 
 }

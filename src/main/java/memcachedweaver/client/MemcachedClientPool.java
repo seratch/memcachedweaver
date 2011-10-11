@@ -56,7 +56,7 @@ public final class MemcachedClientPool {
 			adaptorClass = (Class<? extends MemcachedClientAdaptor>) Class
 					.forName(DEFAULT_CLIENT_ADAPTOR_NAME);
 		}
-		memcached = MemcachedClientFactory.create(adaptorClass.newInstance());
+		memcached = new MemcachedClient(config.getAdaptorClass().newInstance());
 		if (config.getAddresses() != null && config.getAddresses().size() > 0) {
 			memcached.initialize(config.getAddresses(), namespace);
 		} else {
