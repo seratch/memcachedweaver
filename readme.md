@@ -49,16 +49,28 @@
 The value will be cached for the duration of 10 seconds.
 
 ```java
+package service;
+
 import memcachedweaver.annotation.Memcached;
 
 public class DateService {
 
-	@Memcached(secondsToExpire = 10)
-	public String getCurrentAsString() {
-		return new java.util.Date().toString();
-	}
+  @Memcached(secondsToExpire = 10)
+  public String getCurrentAsString(String prefix) {
+    return prefix + new java.util.Date().toString();
+  }
 
 }
+```
+
+```java
+String result = new DateService().getCurrentAsString("PREFIX");
+```
+
+The return value will be cached as follows:
+
+```
+"com.example::public_void_service.DateService.getCurrentAsString(String)::PREFIX"
 ```
 
 
