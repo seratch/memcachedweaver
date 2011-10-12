@@ -31,6 +31,17 @@
         </pluginRepository>
     </pluginRepositories>
 
+    <distributionManagement>
+        <repository>
+            <id>repo</id>
+            <url>http://seratch.github.com/mvn-repo/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshot-repo</id>
+            <url>http://seratch.github.com/mvn-repo/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <dependencies>
 
         <!-- aopalliance -->
