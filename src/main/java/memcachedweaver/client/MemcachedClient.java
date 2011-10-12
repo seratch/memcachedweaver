@@ -49,15 +49,21 @@ public class MemcachedClient {
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T> T get(String key) throws Exception {
+	public <T> T get(String key) throws IOException {
 		ensureInitialized();
 		return (T) clientImpl.get(key);
 	}
 
 	public <T> void set(String key, int secondsToExpire, T value)
-			throws Exception {
+			throws IOException {
 		ensureInitialized();
 		clientImpl.set(key, secondsToExpire, value);
+	}
+
+	public <T> void setAndEnsure(String key, int secondsToExpire, T value)
+			throws IOException {
+		ensureInitialized();
+		clientImpl.setAndEnsure(key, secondsToExpire, value);
 	}
 
 	void ensureInitialized() throws IllegalStateException {

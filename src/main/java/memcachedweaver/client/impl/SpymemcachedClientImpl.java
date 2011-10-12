@@ -92,7 +92,7 @@ public class SpymemcachedClientImpl extends ClientImplBase {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public <T> T get(String key) throws Exception {
+	public <T> T get(String key) throws IOException {
 		notNullValue("key", key);
 		return (T) memcached.get(getKey(key));
 	}

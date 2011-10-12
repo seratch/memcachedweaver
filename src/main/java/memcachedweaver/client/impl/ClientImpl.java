@@ -35,6 +35,6 @@ public interface ClientImpl {
 
 	<T> void setAndEnsure(String key, int secondsToExpire, T value) throws IOException;
 
-	<T> T get(String key) throws Exception;
+	<T> T get(String key) throws IOException;
 
 }
