@@ -20,8 +20,10 @@ import net.spy.memcached.MemcachedClient;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.List;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
-import static memcachedweaver.util.Assertion.notNullValue;
+import static memcachedweaver.util.Assertion.*;
 
 public class SpymemcachedClientImpl extends ClientImplBase {
 
@@ -36,6 +38,11 @@ public class SpymemcachedClientImpl extends ClientImplBase {
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
 		}
+	}
+
+	@Override
+	public boolean isInitialized() {
+		return memcached != null;
 	}
 
 	@Override
@@ -57,9 +64,30 @@ public class SpymemcachedClientImpl extends ClientImplBase {
 
 	@Override
 	public <T> void set(String key, int secondsToExpire, T value)
-			throws Exception {
+			throws IOException {
 		notNullValue("key", key);
 		memcached.set(getKey(key), secondsToExpire, value);
+	}
+
+	@Override
+	public <T> void setAndEnsure(String key, int secondsToExpire, T value)
+			throws IOException {
+		notNullValue("key", key);
+		Future<Boolean> future = memcached.set(getKey(key), secondsToExpire, value);
+		try {
+			boolean result = future.get(5, TimeUnit.SECONDS);
+			if (!result) {
+				String failedMessage = "Failed to set the value on memcached! " +
+						"(key:" + key + ",secondsToExpire:" + secondsToExpire + ",value:" + value + ")";
+				throw new IOException(failedMessage);
+			}
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
+		} catch (Exception e) {
+			String failedMessage = "Failed to set the value on memcached! " +
+					"(key:" + key + ",secondsToExpire:" + secondsToExpire + ",value:" + value + ")";
+			throw new IOException(failedMessage, e);
+		}
 	}
 
 	@Override

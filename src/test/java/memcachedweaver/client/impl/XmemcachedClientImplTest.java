@@ -1,20 +1,15 @@
 package memcachedweaver.client.impl;
 
-import java.util.ArrayList;
-
 import memcachedweaver.Configuration;
-
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
-
 import memcachedweaver.bean.SampleBean;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.mockito.BDDMockito.*;
-
 import java.net.InetSocketAddress;
 import java.util.List;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
 
 public class XmemcachedClientImplTest {
 
@@ -85,6 +80,14 @@ public class XmemcachedClientImplTest {
 		memcached.set(key, secondsToExpire, value);
 		SampleBean actual = memcached.get(key);
 		assertThat(actual.name, is(equalTo(value.name)));
+	}
+
+	@Test
+	public void setAndEnsure_A$String$int$Object() throws Exception {
+		String key = "something";
+		int secondsToExpire = 0;
+		SampleBean value = new SampleBean();
+		memcached.setAndEnsure(key, secondsToExpire, value);
 	}
 
 }

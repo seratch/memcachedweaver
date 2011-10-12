@@ -1,25 +1,16 @@
 package memcachedweaver.interceptor;
 
-import memcachedweaver.interceptor.MemcachedInterceptor.*;
-
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
-
+import memcachedweaver.Configuration;
+import org.aopalliance.intercept.MethodInvocation;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.mockito.BDDMockito.*;
-
-import memcachedweaver.Configuration;
-import memcachedweaver.annotation.Memcached;
-import memcachedweaver.client.MemcachedClient;
-import memcachedweaver.client.MemcachedClientPool;
-import org.aopalliance.intercept.MethodInterceptor;
-import org.aopalliance.intercept.MethodInvocation;
-
-import javax.annotation.Resource;
 import java.lang.reflect.Method;
 import java.net.InetSocketAddress;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
+import static org.mockito.BDDMockito.*;
 
 public class MemcachedInterceptorTest {
 

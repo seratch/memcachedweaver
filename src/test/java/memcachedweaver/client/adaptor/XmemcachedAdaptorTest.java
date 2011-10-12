@@ -1,13 +1,11 @@
 package memcachedweaver.client.adaptor;
 
-import memcachedweaver.client.adaptor.XmemcachedAdaptor.*;
+import memcachedweaver.client.impl.XmemcachedClientImpl;
+import org.junit.Test;
+
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
-import org.junit.Test;
-import static org.mockito.BDDMockito.*;
 
-import memcachedweaver.client.impl.ClientImpl;
-import memcachedweaver.client.impl.XmemcachedClientImpl;
 public class XmemcachedAdaptorTest {
 
 	@Test

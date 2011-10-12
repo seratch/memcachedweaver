@@ -61,7 +61,7 @@ public class MemcachedClient {
 	}
 
 	void ensureInitialized() throws IllegalStateException {
-		if (clientImpl == null) {
+		if (clientImpl == null || !clientImpl.isInitialized()) {
 			throw new IllegalStateException("Not yet initialized.");
 		}
 	}

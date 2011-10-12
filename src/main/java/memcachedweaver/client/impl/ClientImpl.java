@@ -21,6 +21,8 @@ import java.util.List;
 
 public interface ClientImpl {
 
+	boolean isInitialized();
+
 	void initialize(List<InetSocketAddress> addresses) throws IOException;
 
 	void initialize(List<InetSocketAddress> addresses, String namespace) throws IOException;
@@ -29,7 +31,9 @@ public interface ClientImpl {
 
 	void setNamespace(String namespace);
 
-	<T> void set(String key, int secondsToExpire, T value) throws Exception;
+	<T> void set(String key, int secondsToExpire, T value) throws IOException;
+
+	<T> void setAndEnsure(String key, int secondsToExpire, T value) throws IOException;
 
 	<T> T get(String key) throws Exception;
 

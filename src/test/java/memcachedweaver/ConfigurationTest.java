@@ -1,16 +1,10 @@
 package memcachedweaver;
 
-import memcachedweaver.Configuration.*;
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
 import org.junit.Test;
 
-import memcachedweaver.client.adaptor.MemcachedClientAdaptor;
-import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
+
 public class ConfigurationTest {
 
 	@Test
@@ -55,7 +49,7 @@ public class ConfigurationTest {
 	@Test
 	public void setAddressesAsStringArray_A$StringArray() throws Exception {
 		Configuration target = new Configuration();
-		String[] addresses = new String[] {};
+		String[] addresses = new String[]{};
 		target.setAddressesAsStringArray(addresses);
 	}
 

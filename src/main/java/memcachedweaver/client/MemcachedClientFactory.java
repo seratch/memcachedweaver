@@ -16,7 +16,6 @@
 package memcachedweaver.client;
 
 import memcachedweaver.Configuration;
-import memcachedweaver.client.adaptor.MemcachedClientAdaptor;
 
 public class MemcachedClientFactory {
 

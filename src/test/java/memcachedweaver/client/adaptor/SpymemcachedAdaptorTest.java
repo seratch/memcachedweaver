@@ -1,13 +1,11 @@
 package memcachedweaver.client.adaptor;
 
-import memcachedweaver.client.adaptor.SpymemcachedAdaptor.*;
+import memcachedweaver.client.impl.SpymemcachedClientImpl;
+import org.junit.Test;
+
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
-import org.junit.Test;
-import static org.mockito.BDDMockito.*;
 
-import memcachedweaver.client.impl.ClientImpl;
-import memcachedweaver.client.impl.SpymemcachedClientImpl;
 public class SpymemcachedAdaptorTest {
 
 	@Test

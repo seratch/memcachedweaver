@@ -9,11 +9,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.net.InetSocketAddress;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 public class MemcachedClientTest {
 
@@ -98,6 +97,13 @@ public class MemcachedClientTest {
 		int secondsToExpire = 1;
 		SampleBean value = new SampleBean();
 		target.set(key, secondsToExpire, value);
+	}
+
+	@Test(expected = IllegalStateException.class)
+	public void ensureInitialized_A$() throws Exception {
+		MemcachedClientAdaptor clientAdaptor = new SpymemcachedAdaptor();
+		MemcachedClient target = new MemcachedClient(clientAdaptor);
+		target.ensureInitialized();
 	}
 
 }

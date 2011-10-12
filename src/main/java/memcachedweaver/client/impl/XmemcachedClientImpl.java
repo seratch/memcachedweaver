@@ -29,6 +29,11 @@ public class XmemcachedClientImpl extends ClientImplBase {
 	private MemcachedClient memcached;
 
 	@Override
+	public boolean isInitialized() {
+		return memcached != null;
+	}
+
+	@Override
 	public void initialize(List<InetSocketAddress> addresses)
 			throws IOException {
 		notNullValue("addresses", addresses);
@@ -45,16 +50,46 @@ public class XmemcachedClientImpl extends ClientImplBase {
 
 	@Override
 	public <T> void set(String key, int secondsToExpire, T value)
-			throws Exception {
+			throws IOException {
 		notNullValue("key", key);
-		memcached.set(getKey(key), secondsToExpire, value);
+		try {
+			memcached.set(getKey(key), secondsToExpire, value);
+		} catch (Exception e) {
+			String failedMessage = "Failed to set value on memcached! " +
+					"(key:" + key + ",secondsToExpire:" + secondsToExpire + ",value:" + value + ")";
+			throw new IOException(failedMessage, e);
+		}
+	}
+
+	@Override
+	public <T> void setAndEnsure(String key, int secondsToExpire, T value)
+			throws IOException {
+		notNullValue("key", key);
+		try {
+			set(key, secondsToExpire, value);
+			T cached = (T) memcached.get(getKey(key));
+			if (cached == null) {
+				String failedMessage = "Failed to set value on memcached! " +
+						"(key:" + key + ",secondsToExpire:" + secondsToExpire + ",value:" + value + ")";
+				throw new IOException(failedMessage);
+			}
+		} catch (Exception e) {
+			String failedMessage = "Failed to set value on memcached! " +
+					"(key:" + key + ",secondsToExpire:" + secondsToExpire + ",value:" + value + ")";
+			throw new IOException(failedMessage, e);
+		}
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public <T> T get(String key) throws Exception {
+	public <T> T get(String key) throws IOException {
 		notNullValue("key", key);
-		return (T) memcached.get(getKey(key));
+		try {
+			return (T) memcached.get(getKey(key));
+		} catch (Exception e) {
+			String failedMessage = "Failed to get value on memcached! (key:" + key + ")";
+			throw new IOException(failedMessage, e);
+		}
 	}
 
 }

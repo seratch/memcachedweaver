@@ -1,20 +1,11 @@
 package memcachedweaver.client;
 
-import memcachedweaver.client.MemcachedClientPool.*;
-
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
-
+import memcachedweaver.Configuration;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.mockito.BDDMockito.*;
-
-import memcachedweaver.Configuration;
-import memcachedweaver.client.adaptor.MemcachedClientAdaptor;
-
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
 
 public class MemcachedClientPoolTest {
 
