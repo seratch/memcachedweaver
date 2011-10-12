@@ -31,15 +31,17 @@
 
 "memcachedweaver" is a pluggable wrapper API for several memcached clients, and it's possible to add new adaptors.
 
+* memcacheweaver.client.adaptor.SpymemcachedAdaptor
+* memcacheweaver.client.adaptor.XmemcachedAdaptor
+
 ```java
 Configuration config = new Configuration();
-//config.setAdaptorClassName("memcachedweaver.client.adaptor.SpymemcachedAdaptor");
-config.setAdaptorClassName("memcachedweaver.client.adaptor.XmemcachedAdaptor");
-config.setAddressesAsString("server1:11211,server2:11211");
+config.setAdaptorClassName("memcachedweaver.client.adaptor.SpymemcachedAdaptor");
+config.setAddressesAsString("server1:11211,server2:11211"); // csv
 MemcachedClient memcached = MemcachedClientFactory.create(config);
 
 Thread.sleep(300L);
-memcached.set("stopped time", 1, new java.util.Date().toString()); // space will be replaced to underscore
+memcached.set("stopped time", 1, new java.util.Date().toString()); // whitespace will be replaced to underscore
 Thread.sleep(300L);
 assertThat(memcached.get("stopped time"), is(notNullValue())); // "Wed Oct 12 00:01:54 JST 2011"
 Thread.sleep(1000L);
@@ -48,7 +50,7 @@ assertThat(memcached.get("stopped time"), is(nullValue())); // null
 
 ### Setup for Spring Framework
 
-#### applicationContext.xml
+"applicationContext.xml" as follows:
 
 ```xml
 <bean id="memcachedweaverConfiguration" class="memcachedweaver.Configuration">
@@ -61,6 +63,39 @@ assertThat(memcached.get("stopped time"), is(nullValue())); // null
 <aop:config>
   <aop:advisor advice-ref="memcachedInterceptor" pointcut="..."/>
 </aop:config>
+```
+
+### Setup for Guice
+
+Give thought to use [GuiceyFruit](http://code.google.com/p/guiceyfruit/).
+
+```java
+Injector injector = Guice.createInjector(new Jsr250Module() {
+
+  protected void configure() {
+    super.configure();
+    bind(Configuration.class).in(Singleton.class);
+  }
+
+});
+```
+
+### Setup by inheritence
+
+It's also possible to inject the configuration to interceptor by inheritence.
+
+```java
+public class MyMemcachedInterceptor extends MemcachedInterceptor {
+
+  @Override
+  public Configuration getConfiguration() {
+    Configuration config = new Configuration();
+    config.setNamespace("....");
+    ...
+    return config;
+  }
+
+}
 ```
 
 ### Using AOP
@@ -82,15 +117,19 @@ public class DateService {
 }
 ```
 
+### The rule of generated cache key
+
+```
+"(namespace)::(Method#toGenericString() and replace "\\s+" to "_")::(args separated by comma)"
+```
+
+For example:
+
 ```java
 String result = new DateService().getCurrentAsString("PREFIX");
 ```
 
-The return value will be cached as follows:
-
-```
-"com.example::public_void_service.DateService.getCurrentAsString(String)::PREFIX"
-```
+And thn, the returned value will be cached as "com.example::public_void_service.DateService.getCurrentAsString(String)::PREFIX" on memcached.
 
 
 ## License
@@ -112,3 +151,5 @@ The return value will be cached as follows:
  * governing permissions and limitations under the License.
  */
 ```
+
+
