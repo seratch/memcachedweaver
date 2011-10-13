@@ -32,18 +32,24 @@
 "memcachedweaver" is a pluggable wrapper API for several memcached clients, and it's possible to add new adaptors.
 
 * memcacheweaver.client.adaptor.SpymemcachedAdaptor
+
+http://code.google.com/p/spymemcached/
+
 * memcacheweaver.client.adaptor.XmemcachedAdaptor
+
+http://code.google.com/p/xmemcached/
 
 ```java
 Configuration config = new Configuration();
 config.setAdaptorClassName("memcachedweaver.client.adaptor.SpymemcachedAdaptor");
-config.setAddressesAsString("server1:11211,server2:11211"); // csv
+config.setAddressesAsString("server1:11211,server2:11211"); // csv format
 MemcachedClient memcached = MemcachedClientFactory.create(config);
 
-Thread.sleep(300L);
-memcached.set("stopped time", 1, new java.util.Date().toString()); // whitespace will be replaced to underscore
-Thread.sleep(300L);
-assertThat(memcached.get("stopped time"), is(notNullValue())); // "Wed Oct 12 00:01:54 JST 2011"
+Thread.sleep(500L);
+String toBeCached = new java.util.Date().toString();
+memcached.set("stopped time", 1, toBeCached); // whitespace in cache key will be replaced to underscore
+Thread.sleep(500L);
+assertThat(memcached.get("stopped time"), is(equalTo(toBeCached))); // "Wed Oct 12 00:01:54 JST 2011"
 Thread.sleep(1000L);
 assertThat(memcached.get("stopped time"), is(nullValue())); // null
 ```
@@ -52,32 +58,18 @@ assertThat(memcached.get("stopped time"), is(nullValue())); // null
 
 "applicationContext.xml" as follows:
 
-```xml
+```
 <bean id="memcachedweaverConfiguration" class="memcachedweaver.Configuration">
   <property name="namespace" value="com.example" />
   <property name="adaptorClassName" value="memcachedweaver.client.adaptor.SpymemcachedAdaptor" />
-  <!-- <property name="adaptorClassName" value="memcachedweaver.client.adaptor.XmemcachedAdaptor" /> -->
   <property name="addressesAsString" value="lcoalhost:11211,localhost:11212" />
 </bean>
+
 <bean id="memcachedInterceptor" class="memcachedweaver.interceptor.MemcachedInterceptor"/>
+
 <aop:config>
   <aop:advisor advice-ref="memcachedInterceptor" pointcut="..."/>
 </aop:config>
-```
-
-### Setup for Guice
-
-Give thought to use [GuiceyFruit](http://code.google.com/p/guiceyfruit/).
-
-```java
-Injector injector = Guice.createInjector(new Jsr250Module() {
-
-  protected void configure() {
-    super.configure();
-    bind(Configuration.class).in(Singleton.class);
-  }
-
-});
 ```
 
 ### Setup by inheritence
