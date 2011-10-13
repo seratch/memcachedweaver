@@ -19,7 +19,7 @@ public class MemcachedClientFactoryTest {
 		config.loadConfigFromProperties();
 		config.setAdaptorClassName("memcachedweaver.client.adaptor.XmemcachedAdaptor");
 		MemcachedClient memcached = MemcachedClientFactory.create(config);
-		Thread.sleep(300L);
+		Thread.sleep(500L);
 		memcached.set("time", 1, new java.util.Date().toString());
 		Thread.sleep(500L);
 		assertThat(memcached.get("time"), is(notNullValue()));

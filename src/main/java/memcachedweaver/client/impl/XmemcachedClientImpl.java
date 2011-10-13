@@ -61,6 +61,7 @@ public class XmemcachedClientImpl extends ClientImplBase {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> void setAndEnsure(String key, int secondsToExpire, T value)
 			throws IOException {

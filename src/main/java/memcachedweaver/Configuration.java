@@ -90,8 +90,11 @@ public class Configuration {
 		this.addresses = new ArrayList<InetSocketAddress>();
 		for (String address : addresses) {
 			String[] splitted = address.split(":");
-			this.addresses.add(new InetSocketAddress(splitted[0], Integer
-					.valueOf(splitted[1])));
+			if (splitted.length == 2) {
+				this.addresses.add(new InetSocketAddress(splitted[0], Integer.valueOf(splitted[1])));
+			} else {
+				throw new IllegalArgumentException("Invalid address format (" + address + ")");
+			}
 		}
 	}
 
