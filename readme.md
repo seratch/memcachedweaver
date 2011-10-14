@@ -27,17 +27,19 @@
 
 ## Usage
 
-### Using as a wrapper API for several memcached clients
+### Using as a wrapper API for memcached clients
 
-"memcachedweaver" is a pluggable wrapper API for several memcached clients, and it's possible to add new adaptors.
+memcachedweaver provides a pluggable wrapper API for memcached clients and developers can access memcached servers transparently.
 
-* memcacheweaver.client.adaptor.SpymemcachedAdaptor
+Currently memcachedweaver supports following 2 libraries, and it's also possible to add new adaptors.
 
-http://code.google.com/p/spymemcached/
+#### memcacheweaver.client.adaptor.SpymemcachedAdaptor
 
-* memcacheweaver.client.adaptor.XmemcachedAdaptor
+  for http://code.google.com/p/spymemcached/
 
-http://code.google.com/p/xmemcached/
+#### memcacheweaver.client.adaptor.XmemcachedAdaptor
+
+  for http://code.google.com/p/xmemcached/
 
 ```java
 Configuration config = new Configuration();
