@@ -1,0 +1,26 @@
+memcachedweaver Release Notes for Release 0.1
+------
+Date: Fri Oct 14, 2011
+
+[Project Website]
+
+  https://github.com/seratch/memcachedweaver
+
+[Maven Repository]
+
+  http://seratch.github.com/mvn-repo/releases
+
+[New Features]
+
+ This is the first release of this library. And currently it supports the following features.
+
+  1. Pluggable wrapper API for memcached clients
+
+  2. Caching methods result with AOP on memcached
+
+[License]
+
+ Apache License, Version 2.0
+ http://www.apache.org/licenses/LICENSE-2.0
+
+------
