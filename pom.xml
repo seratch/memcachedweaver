@@ -4,7 +4,7 @@
 
     <groupId>com.github.seratch</groupId>
     <artifactId>memcachedweaver</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.1</version>
     <packaging>jar</packaging>
 
     <name>memcachedweaver</name>
@@ -83,7 +83,7 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.5.6</version>
-            <scope>test</scope>
+            <scope>provided</scope>
         </dependency>
 
         <!-- unit testing -->
