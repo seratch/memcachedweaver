@@ -1,4 +1,4 @@
-# memcachedweaver: Caching methods result with AOP on memcached
+# memcachedweaver: Caching methods result on memcached with AOP
 
 ## Getting Started
 
