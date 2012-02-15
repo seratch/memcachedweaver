@@ -1,3 +1,10 @@
+memcachedweaver Release Notes for Release 0.2
+------
+Date: Wed Feb 15, 2012
+
+ Changed maven repository to oss.sonatype.org (and sync to maven central) 
+
+
 memcachedweaver Release Notes for Release 0.1
 ------
 Date: Fri Oct 14, 2011

@@ -5,22 +5,11 @@
 ### Maven
 
 ```xml
-<repositories>
-  <repository>
-    <id>seratch.github.com releases</id>
-    <url>http://seratch.github.com/mvn-repo/releases</url>
-  </repository>
-  <repository>
-    <id>seratch.github.com snapshots</id>
-    <url>http://seratch.github.com/mvn-repo/snapshots</url>
-  </repository>
-</repositories>
-
 <dependencies>
   <dependency>
     <groupId>com.github.seratch</groupId>
     <artifactId>memcachedweaver</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.2</version>
   </dependency>
 </dependencies>
 ```
